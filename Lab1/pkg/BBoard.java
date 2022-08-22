@@ -4,6 +4,12 @@ import java.io.*;
 
 public class BBoard {		// This is your main file that connects all classes.
 	// Think about what your global variables need to be.
+	
+	private String title;
+	private ArrayList<User> userList;
+	private ArrayList<Message> messageList;
+	private int topicC;
+	private User currentUser;
 
 	// Default constructor that creates a board with a defaulttitle, empty user and message lists,
 	// and no current user
@@ -13,13 +19,23 @@ public class BBoard {		// This is your main file that connects all classes.
 
 	// Same as the default constructor except it sets the title of the board
 	public BBoard(String ttl) {	
+		title = ttl;
 	}
 
 	// Gets a filename of a file that stores the user info in a given format (users.txt)
 	// Opens and reads the file of all authorized users and passwords
 	// Constructs a User object from each name/password pair, and populates the userList ArrayList.
 	public void loadUsers(String inputFile) throws FileNotFoundException {
-
+		File file = new File(inputFile);
+		Scanner scan = new Scanner(file);
+		while(scan.hasNextLine())
+		{
+			String full = scan.nextLine();
+			String name = full.substring(0, full.indexOf(" "));
+			String pass = full.substring(full.indexOf(" ")+1, full.length());
+			userList.add(new User(name, pass));
+		}
+		
 	}
 
 	// Asks for and validates a user/password. 
@@ -28,7 +44,7 @@ public class BBoard {		// This is your main file that connects all classes.
 	// If not, it will keep asking until a match is found or the user types 'q' or 'Q' as username to quit
 	// When the users chooses to quit, sayu "Bye!" and return from the login function
 	public void login(){
-
+		
 	}
 	
 	// Contains main loop of Bulletin Board
@@ -42,7 +58,7 @@ public class BBoard {		// This is your main file that connects all classes.
 	// Q/q should reset the currentUser to 0 and then end return
 	// Note: if login() did not set a valid currentUser, function must immediately return without showing menu
 	public void run(){
-
+		
 	}
 
 	// Traverse the BBoard's message list, and invote the print function on Topic objects ONLY

@@ -3,6 +3,12 @@ import java.util.*;
 import java.io.*;
 
 public class Message {
+	
+	private String subject;
+	private String body;
+	private String id;
+	private String author;
+	private int ind; 
 
 	// Default Constructor
 	public Message() {
@@ -11,7 +17,10 @@ public class Message {
 	
 	// Parameterized Constructor
 	public Message(String auth, String subj, String bod, int i) {
-		
+		author = auth;
+		subject = subj;
+		body = body;
+		id = i;
 	}
 
 	// This function is responsbile for printing the Message
@@ -34,11 +43,12 @@ public class Message {
 
 	// Returns the subject String
 	public String getSubject(){
-		
+		return subject;
 	} 
 
 	// Returns the ID
 	public int getId(){
+		return id;
 		
 	}
 

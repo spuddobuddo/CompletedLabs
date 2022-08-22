@@ -8,7 +8,8 @@ public class User {
 	private String pword;
 	// Creates a User with empty name and password.
 	public User() {
-
+		name = "";
+		pword = "";
 	}
 
 	// Creates a User with given username and password.
@@ -26,7 +27,16 @@ public class User {
 	// Note that, even with a User with empty name and password, this is actually a valid User object (it is the default User), 
 	// This function must still return false if given an empty username string.  
 	public boolean check(String usr, String psd){
-
+		if (name == "" || pwd == "")
+		{
+			return false;
+		}
+		
+		if (name == usr && pword == pwd)
+		{
+			return true;
+		}
+		return false;
 	}
 
 	// Sets a new password.
@@ -34,6 +44,16 @@ public class User {
 	// Also, a default User cannot have its password changed. 
 	// Return true if password changed, return false if not.
 	public boolean setPassword(String oldPass, String newPass){
-
+		if (name == "" || pwd == "")
+		{
+			return false;
+		}
+		
+		if (oldPass == pword)
+		{
+			pword = newPass;
+			return true;
+		}
+		return false;
 	}
 }
