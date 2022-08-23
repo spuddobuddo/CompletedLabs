@@ -10,16 +10,20 @@ public class BBoard {		// This is your main file that connects all classes.
 	private ArrayList<Message> messageList;
 	private int topicC;
 	private User currentUser;
+	private boolean uCheck;
+	private boolean quit;
 
 	// Default constructor that creates a board with a defaulttitle, empty user and message lists,
 	// and no current user
 	public BBoard() {
-		
+		title = "Default Title";
+		quit = false;
 	}
 
 	// Same as the default constructor except it sets the title of the board
 	public BBoard(String ttl) {	
 		title = ttl;
+		quit = false;
 	}
 
 	// Gets a filename of a file that stores the user info in a given format (users.txt)
@@ -44,7 +48,29 @@ public class BBoard {		// This is your main file that connects all classes.
 	// If not, it will keep asking until a match is found or the user types 'q' or 'Q' as username to quit
 	// When the users chooses to quit, sayu "Bye!" and return from the login function
 	public void login(){
-		
+		while (quit == false)
+		{
+			System.out.print("Enter username: ");
+			String usr = scan.nextLine();
+			if (usr.equals("Q") || usr.equals("q"))
+			{
+				System.out.print("Adios");
+				quit == true;
+			}
+			System.out.print("Enter password: ");
+			String pwd = scan.nextLine();
+			for (int i = 0; i < userList.size(); i++)
+			{
+				if (usr.equals(userList.get(i).getUsername()))
+				{
+					boolean check = userList.get(i).check(usr, pwd);
+					if (check == true)
+					{
+						currentUser = userList.get(i);
+					}
+				}
+			}
+		}
 	}
 	
 	// Contains main loop of Bulletin Board
@@ -55,17 +81,17 @@ public class BBoard {		// This is your main file that connects all classes.
 	// --- Change Password ('P' or 'p')
 	// --- Quit ('Q' or 'q')
 	// With any wrong input, user is asked to try again
-	// Q/q should reset the currentUser to 0 and then end return
+	// Q/q should reset the currentUser to 0 (empty) and then end return
 	// Note: if login() did not set a valid currentUser, function must immediately return without showing menu
 	public void run(){
 		
 	}
 
-	// Traverse the BBoard's message list, and invote the print function on Topic objects ONLY
+	// Traverse the BBoard's message list, and invoke the print function on Topic objects ONLY
 	// It will then be the responsibility of the Topic object to invoke the print function recursively on its own replies
 	// The BBoard display function will ignore all reply objects in its message list
 	private void display(){
-
+		
 	}
 
 
@@ -84,7 +110,7 @@ public class BBoard {		// This is your main file that connects all classes.
 	// Once the Topic has been constructed, add it to the messageList
 	// This should invoke your inheritance of Topic to Message
 	private void addTopic(){
-
+		
 	}
 
 	// This function asks the user to enter a reply to a given Message (which may be either a Topic or a Reply, so we can handle nested replies).
@@ -117,7 +143,7 @@ public class BBoard {		// This is your main file that connects all classes.
 	// Finally, push back the Message created to the BBoard's messageList. 
 	// Note: When the user chooses to return to the menu, do not call run() again - just return fro mthis addReply function. 
 	private void addReply(){
-
+		
 	}
 
 	// This function allows the user to change their current password.

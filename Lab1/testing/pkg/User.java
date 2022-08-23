@@ -51,6 +51,7 @@ public class User {
 		
 		if (oldPass == pword)
 		{
+			pword = newPass;
 			return true;
 		}
 		return false;
