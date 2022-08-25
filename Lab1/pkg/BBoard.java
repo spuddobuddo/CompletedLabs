@@ -8,7 +8,7 @@ public class BBoard {		// This is your main file that connects all classes.
 	private String title;
 	private ArrayList<User> userList;
 	private ArrayList<Message> messageList;
-	private int topicC;
+	private int mesC;
 	private User currentUser;
 	private boolean uCheck;
 	private boolean quit;
@@ -17,13 +17,17 @@ public class BBoard {		// This is your main file that connects all classes.
 	// and no current user
 	public BBoard() {
 		title = "Default Title";
+		mesC = 0;
 		quit = false;
+		uCheck = false;
 	}
 
 	// Same as the default constructor except it sets the title of the board
 	public BBoard(String ttl) {	
 		title = ttl;
+		mesC = 0;
 		quit = false;
+		uCheck = false;
 	}
 
 	// Gets a filename of a file that stores the user info in a given format (users.txt)
@@ -48,17 +52,18 @@ public class BBoard {		// This is your main file that connects all classes.
 	// If not, it will keep asking until a match is found or the user types 'q' or 'Q' as username to quit
 	// When the users chooses to quit, sayu "Bye!" and return from the login function
 	public void login(){
-		while (quit == false)
+		Scanner sc = new Scanner (System.in);
+		while (quit == false || uCheck == false)
 		{
 			System.out.print("Enter username: ");
-			String usr = scan.nextLine();
+			String usr = sc.nextLine();
 			if (usr.equals("Q") || usr.equals("q"))
 			{
 				System.out.print("Adios");
-				quit == true;
+				quit = true;
 			}
 			System.out.print("Enter password: ");
-			String pwd = scan.nextLine();
+			String pwd = sc.nextLine();
 			for (int i = 0; i < userList.size(); i++)
 			{
 				if (usr.equals(userList.get(i).getUsername()))
@@ -67,6 +72,7 @@ public class BBoard {		// This is your main file that connects all classes.
 					if (check == true)
 					{
 						currentUser = userList.get(i);
+						uCheck = true;
 					}
 				}
 			}
@@ -84,14 +90,56 @@ public class BBoard {		// This is your main file that connects all classes.
 	// Q/q should reset the currentUser to 0 (empty) and then end return
 	// Note: if login() did not set a valid currentUser, function must immediately return without showing menu
 	public void run(){
-		
+		Scanner sc = new Scanner(System.in);
+		while (quit == false)
+		{
+			System.out.println("Menu");
+			System.out.println("--- Display Messages ('D' or 'd')");
+			System.out.println("--- Add New Topic ('N' or 'n')");
+			System.out.println("--- Add Reply ('R' or 'r')");
+			System.out.println("--- Change Password ('P' or 'p')");
+			System.out.println("--- Quit ('Q' or 'q')");
+			System.out.println("Choose an action: ");
+			String letter = sc.nextLine();
+			if (letter.equals("D") || letter.equals("d"))
+			{
+				display();
+			}
+			else if (letter.equals("N") || letter.equals("n"))
+			{
+				addTopic();
+			}
+			else if (letter.equals("R") || letter.equals("r"))
+			{
+				addReply();
+			}
+			else if (letter.equals("P") || letter.equals("p"))
+			{
+				setPassword();
+			}
+			else if (letter.equals("Q") || letter.equals("q"))
+			{
+				currentUser = new User();
+				quit = true;
+			}
+			else
+			{
+				System.out.println("Try again");
+			}
+		}
 	}
 
 	// Traverse the BBoard's message list, and invoke the print function on Topic objects ONLY
 	// It will then be the responsibility of the Topic object to invoke the print function recursively on its own replies
 	// The BBoard display function will ignore all reply objects in its message list
 	private void display(){
-		
+		for (int i = 0; i < messageList.size(); i++)
+		{
+			if (messageList.get(i).isReply() == false)
+			{
+				messageList.get(i).print(0);
+			}
+		}
 	}
 
 
@@ -110,7 +158,13 @@ public class BBoard {		// This is your main file that connects all classes.
 	// Once the Topic has been constructed, add it to the messageList
 	// This should invoke your inheritance of Topic to Message
 	private void addTopic(){
-		
+		Scanner sc = new Scanner (System.in);
+		System.out.print("Subject: ");
+		String subj = sc.nextLine();
+		System.out.print("Body: ");
+		String bod = sc.nextLine();
+		messageList.add(new Topic(currentUser.getUsername(), subj, bod, mesC+1));
+		mesC++;
 	}
 
 	// This function asks the user to enter a reply to a given Message (which may be either a Topic or a Reply, so we can handle nested replies).
@@ -143,6 +197,28 @@ public class BBoard {		// This is your main file that connects all classes.
 	// Finally, push back the Message created to the BBoard's messageList. 
 	// Note: When the user chooses to return to the menu, do not call run() again - just return fro mthis addReply function. 
 	private void addReply(){
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter Message ID (-1 for Menu): ");
+		int mesId = sc.nextInt();
+		if (mesId != -1)
+		{
+			for (int i = 0; i < messageList.size(); i++)
+			{
+				if (mesId == messageList.get(i).getId())
+				{
+					System.out.println("Body: ");
+					String bodr = sc.nextLine();
+					Reply bruh = new Reply(currentUser.getUsername(), ("Re: "+messageList.get(i).getSubject()), bodr, mesC+1);
+					messageList.add(bruh);
+					mesC++;
+					messageList.get(i).addChild(bruh);
+				}
+				else
+				{
+					System.out.println("Invalid number");
+				}
+			}
+		}
 		
 	}
 
@@ -154,7 +230,27 @@ public class BBoard {		// This is your main file that connects all classes.
 	// Any password is allowed except 'c' or 'C' for allowing the user to quit out to the menu. 
 	// Once entered, the user will be told "Password Accepted." and returned to the menu.
 	private void setPassword(){
-		
+		Scanner sc = new Scanner (System.in);
+		System.out.print("Old Password ('c' or 'C' for Menu): ");
+		String let = sc.nextLine();
+		if ((!let.equals("c") || !let.equals("C")) && currentUser.check(currentUser.getUsername(), let))
+		{
+			boolean clear = false;
+			while (clear == false);
+			{
+				System.out.print("New Password: ");
+				String let2 = sc.nextLine();
+				if (!let2.equals("c") || !let2.equals("C"))
+				{
+					currentUser.setPassword(let, let2);
+					clear = true;
+				}
+				else
+				{
+					System.out.println("No c's");
+				}
+			}
+		}
 	}
 
 }

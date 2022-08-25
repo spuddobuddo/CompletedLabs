@@ -37,31 +37,23 @@ public class Message {
 	// Note: Each indentation increment represents 2 spaces. e.g. if indentation ==  1, the reply should be indented 2 spaces, 
 	// if it's 2, indent by 4 spaces, etc. (add indentation by 2 each recursion)
 	public void print(int indentation){
-		if (indentation > childList.size())
-		{
-			return;
-		}
-		int i = 0;
-		while (i < indentation)
+		for (int c = 0; c < indentation*2; c++)
 		{
 			System.out.print(" ");
 		}
+		
 		System.out.println("Message #"+id+": "+subject);
-		int c = 0;
-		while (c < indentation)
+		for (int c = 0; c < indentation*2; c++)
 		{
 			System.out.print(" ");
 		}
 		System.out.println("From "+author+": "+body);
-		
-		if (isReply == false)
+
+		for (int i = 0; i < childList.size(); i++)
 		{
-			childList.get(indentation).print(indentation+1);
+			childList.get(i).print(indentation+1);
 		}
-		
-		if (isReply == true)
-		{
-			
+		return;
 	}
 
 	// Default function for inheritance

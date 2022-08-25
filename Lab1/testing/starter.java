@@ -27,8 +27,12 @@ public class starter implements InputControl, InputKeyControl {
 		// }		
 
 		Message bruh = new Message("henry", "subject", "body", 1);
-		Message monke = new Message("bennett", "re: subject", "body", 2);
+		Message monke = new Message("bennett", "Re: subject", "body", 2);
+		Message monke2 = new Message("rohin", "Re: subject2", "body2", 3);
+		Message monke3 = new Message("liam", "Re: subject3", "body3", 4);
 		bruh.addChild(monke);
+		bruh.addChild(monke2);
+		monke.addChild(monke3);
 		bruh.print(0);
 	}
 
