@@ -42,7 +42,7 @@ public class Message {
 			System.out.print(" ");
 		}
 		
-		System.out.println("Message #"+id+": "+subject);
+		System.out.println("Message #"+(id+1)+": "+subject);
 		for (int c = 0; c < indentation*2; c++)
 		{
 			System.out.print(" ");
@@ -53,7 +53,6 @@ public class Message {
 		{
 			childList.get(i).print(indentation+1);
 		}
-		return;
 	}
 
 	// Default function for inheritance

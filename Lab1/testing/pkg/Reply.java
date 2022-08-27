@@ -12,22 +12,16 @@ public class Reply extends Message {
 
 	// Default Constructor
 	public Reply() {
-		author = "";
-		subject = "";
-		body = "";
+		super();
 	}
 
 	// Parameterized Constructor
 	public Reply(String auth, String subj, String bod, int i) {
-		author = auth;
-		subject = subj;
-		body = bod;
-		id = i;
-		childList = new ArrayList<Message>();
+		super(auth, subj, bod, i);
 	}
 
-	// Returns if this is a reply (true)
 	public boolean isReply(){
 		return true;
 	}
+	
 }

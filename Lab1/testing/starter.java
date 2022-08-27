@@ -13,7 +13,7 @@ public class starter implements InputControl, InputKeyControl {
 		// Scanner scan = new Scanner(file);
 		// ArrayList<User> userList = new ArrayList<User>();
 		
-		// while(scan.hasNextLine())
+		// while(scan.hasNext())
 		// {
 			// String full = scan.nextLine();
 			// String name = full.substring(0, full.indexOf(" "));
@@ -23,17 +23,29 @@ public class starter implements InputControl, InputKeyControl {
 		
 		// for (int i = 0; i < userList.size(); i++)
 		// {
-			// System.out.println(userList.get(i));
+			// System.out.println(userList.get(i).getUsername());
+			// System.out.println(userList.get(i).getPword());
 		// }		
 
-		Message bruh = new Message("henry", "subject", "body", 1);
-		Message monke = new Message("bennett", "Re: subject", "body", 2);
-		Message monke2 = new Message("rohin", "Re: subject2", "body2", 3);
-		Message monke3 = new Message("liam", "Re: subject3", "body3", 4);
-		bruh.addChild(monke);
-		bruh.addChild(monke2);
-		monke.addChild(monke3);
-		bruh.print(0);
+		// Topic bruh = new Topic("henry", "subject", "body", 1);
+		// Reply monke = new Reply("bennett", "Re: subject", "body", 2);
+		// Reply monke2 = new Reply("rohin", "Re: subject2", "body2", 3);
+		// Reply monke3 = new Reply("liam", "Re: subject3", "body3", 4);
+		
+		// ArrayList<Message> list = new ArrayList<Message>();
+		// list.add(bruh);
+		// list.add(monke);
+		// list.add(monke2);
+		// list.add(monke3);
+		
+		// list.get(0).addChild(list.get(1));
+		// list.get(0).addChild(list.get(2));
+		// list.get(1).addChild(list.get(3));
+		// list.get(0).print(0);
+		
+		BBoard myBoard = new BBoard("Gaming BBoard");          // Feel free to change the name.
+        myBoard.loadUsers("users.txt");
+        myBoard.run();
 	}
 
 	public void onMouseClick(double x, double y) {

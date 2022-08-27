@@ -40,7 +40,6 @@ public class BBoard {		// This is your main file that connects all classes.
 	// Opens and reads the file of all authorized users and passwords
 	// Constructs a User object from each name/password pair, and populates the userList ArrayList.
 	public void loadUsers(String inputFile) throws FileNotFoundException {
-		System.out.println(title);
 		File file = new File(inputFile);
 		Scanner scan = new Scanner(file);
 		while(scan.hasNextLine())
@@ -51,10 +50,10 @@ public class BBoard {		// This is your main file that connects all classes.
 			userList.add(bruh);
 		}
 		
-		// for (int i = 0; i < userList.size(); i++)
-		// {
-			// System.out.println(userList.get(i));
-		// }
+		for (int i = 0; i < userList.size(); i++)
+		{
+			System.out.println(userList.get(i));
+		}
 	}
 
 	// Asks for and validates a user/password. 
@@ -83,8 +82,7 @@ public class BBoard {		// This is your main file that connects all classes.
 					currentUser = userList.get(i);
 					//System.out.println(currentUser);
 					uCheck = true;
-					System.out.println("Valid Login");
-					break;
+					System.out.println("Login valid");
 				}
 			}
 		}
@@ -107,6 +105,7 @@ public class BBoard {		// This is your main file that connects all classes.
 			Scanner sc = new Scanner(System.in);
 			while (true)
 			{
+				System.out.println(title);
 				System.out.println("Menu");
 				System.out.println("--- Display Messages ('D' or 'd')");
 				System.out.println("--- Add New Topic ('N' or 'n')");
@@ -242,6 +241,10 @@ public class BBoard {		// This is your main file that connects all classes.
 						mesC++;
 						bool = false;
 						break;
+					}
+					else
+					{
+						System.out.println("Invalid number");
 					}
 				}
 			}
