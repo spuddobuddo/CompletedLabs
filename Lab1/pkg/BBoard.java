@@ -15,7 +15,7 @@ public class BBoard {		// This is your main file that connects all classes.
 
 	// Default constructor that creates a board with a defaulttitle, empty user and message lists,
 	// and no current user
-	public BBoard() {
+	public BBoard() { //o(1)
 		title = "Default Title";
 		mesC = 0;
 		quit = false;
@@ -26,7 +26,7 @@ public class BBoard {		// This is your main file that connects all classes.
 	}
 
 	// Same as the default constructor except it sets the title of the board
-	public BBoard(String ttl) {	
+	public BBoard(String ttl) {	//o(1)
 		title = ttl;
 		mesC = 0;
 		quit = false;
@@ -39,7 +39,7 @@ public class BBoard {		// This is your main file that connects all classes.
 	// Gets a filename of a file that stores the user info in a given format (users.txt)
 	// Opens and reads the file of all authorized users and passwords
 	// Constructs a User object from each name/password pair, and populates the userList ArrayList.
-	public void loadUsers(String inputFile) throws FileNotFoundException {
+	public void loadUsers(String inputFile) throws FileNotFoundException { //o(n)
 		System.out.println(title);
 		File file = new File(inputFile);
 		Scanner scan = new Scanner(file);
@@ -62,7 +62,7 @@ public class BBoard {		// This is your main file that connects all classes.
 	// If a match is found, it sets currentUser to the identified User from the list
 	// If not, it will keep asking until a match is found or the user types 'q' or 'Q' as username to quit
 	// When the users chooses to quit, sayu "Bye!" and return from the login function
-	public void login(){
+	public void login(){ //o(k*n)
 		Scanner sc = new Scanner (System.in);
 		while (uCheck == false)
 		{
@@ -100,7 +100,7 @@ public class BBoard {		// This is your main file that connects all classes.
 	// With any wrong input, user is asked to try again
 	// Q/q should reset the currentUser to 0 (empty) and then end return
 	// Note: if login() did not set a valid currentUser, function must immediately return without showing menu
-	public void run(){
+	public void run(){ //o(n)
 		login();
 		if (uCheck == true && quit == false)
 		{
@@ -150,7 +150,7 @@ public class BBoard {		// This is your main file that connects all classes.
 	// Traverse the BBoard's message list, and invoke the print function on Topic objects ONLY
 	// It will then be the responsibility of the Topic object to invoke the print function recursively on its own replies
 	// The BBoard display function will ignore all reply objects in its message list
-	private void display(){
+	private void display(){ //o(n)
 		System.out.println();
 		System.out.println("------------------------------------------");
 		for (int i = 0; i < messageList.size(); i++)
@@ -179,7 +179,7 @@ public class BBoard {		// This is your main file that connects all classes.
 	// so its message ID will be (0+1) = 1
 	// Once the Topic has been constructed, add it to the messageList
 	// This should invoke your inheritance of Topic to Message
-	private void addTopic(){
+	private void addTopic(){ //o(1)
 		Scanner sc = new Scanner (System.in);
 		System.out.print("Subject: ");
 		String subj = sc.nextLine();
@@ -218,7 +218,7 @@ public class BBoard {		// This is your main file that connects all classes.
 	// Call the addChild function on the parent Message to push back the new Message (to the new Reply) to the parent's childList ArrayList.
 	// Finally, push back the Message created to the BBoard's messageList. 
 	// Note: When the user chooses to return to the menu, do not call run() again - just return fro mthis addReply function. 
-	private void addReply(){
+	private void addReply(){ //o(n^2)
 		boolean bool = true;
 		while (bool)
 		{
@@ -260,7 +260,7 @@ public class BBoard {		// This is your main file that connects all classes.
 	// 		The user is welcome to enter 'c' or 'C' to cancel the setting of a password and return to the menu.
 	// Any password is allowed except 'c' or 'C' for allowing the user to quit out to the menu. 
 	// Once entered, the user will be told "Password Accepted." and returned to the menu.
-	private void setPassword(){
+	private void setPassword(){ //o(n)
 		Scanner sc = new Scanner (System.in);
 		System.out.print("Old Password ('c' or 'C' for Menu): ");
 		String let = sc.nextLine();

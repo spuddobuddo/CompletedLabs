@@ -7,26 +7,26 @@ public class User {
 	private String name;
 	private String pword;
 	// Creates a User with empty name and password.
-	public User() {
+	public User() { //o(1)
 		name = "";
 		pword = "";
 	}
 
 	// Creates a User with given username and password.
-	public User(String usr, String pwd) {
+	public User(String usr, String pwd) { //o(1)
 		name = usr;
 		pword = pwd;
 	}
 
 	// Returns the username
-	public String getUsername(){
+	public String getUsername(){ //o(1)
 		return name;
 	}
 
 	// Returns true if the stored username/password matches the parameters. Otherwise returns false.
 	// Note that, even with a User with empty name and password, this is actually a valid User object (it is the default User), 
 	// This function must still return false if given an empty username string.  
-	public boolean check(String usr, String psd){
+	public boolean check(String usr, String psd){ //o(1)
 		if (name.equals("") || pword.equals(""))
 		{
 			return false;
@@ -43,7 +43,7 @@ public class User {
 	// This function should only set the password if the current (old) password is passed in.
 	// Also, a default User cannot have its password changed. 
 	// Return true if password changed, return false if not.
-	public boolean setPassword(String oldPass, String newPass){
+	public boolean setPassword(String oldPass, String newPass){ //o(1)
 		if (name.equals("") || pword.equals(""))
 		{
 			return false;
@@ -56,7 +56,7 @@ public class User {
 		return false;
 	}
 	
-	public String toString()
+	public String toString() //o(1)
 	{
 		return name+" "+pword;
 	}
